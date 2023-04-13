@@ -475,6 +475,15 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'device',
 		default: { type: 'syuilo/bubble2', volume: 1 } as SoundStore,
 	},
+	nicknameEnabled: {
+		where: 'account',
+		default: true,
+	},
+	nicknameMap: {
+		where: 'account',
+		default: {} as Record<string, string>,
+	},
+	// #endregion
 }));
 
 // TODO: 他のタブと永続化されたstateを同期
