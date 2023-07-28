@@ -13,6 +13,11 @@ export interface Locale extends ILocale {
      * 日本語
      */
     "_lang_": string;
+     /**
+     * 絵文字複数登録
+     */
+    "addSingle": string;
+    "addMultiple": string;
     /**
      * ノートでつながるネットワーク
      */
