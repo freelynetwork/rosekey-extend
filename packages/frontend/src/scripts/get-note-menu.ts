@@ -176,9 +176,6 @@ export function getNoteMenu(props: {
 		});
 	}
 	function edit(): void {
-		//os.api('notes/delete', {
-		//	noteId: appearNote.id,
-		//});
 		os.post({
 			initialNote: appearNote,
 			renote: appearNote.renote,
