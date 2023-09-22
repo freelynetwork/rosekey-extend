@@ -74,6 +74,7 @@ import {
 	MiScheduledNote,
 	MiBubbleGameRecord,
 	MiReversiGame,
+	NoteEdit,
 } from './_.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
@@ -486,6 +487,12 @@ const $reversiGamesRepository: Provider = {
 	inject: [DI.db],
 };
 
+const $noteEditRepository: Provider = {
+	provide: DI.noteEditRepository,
+	useFactory: (db: DataSource) => db.getRepository(NoteEdit),
+	inject: [DI.db],
+};
+
 @Module({
 	imports: [
 	],
@@ -558,6 +565,7 @@ const $reversiGamesRepository: Provider = {
 		$userMemosRepository,
 		$bubbleGameRecordsRepository,
 		$reversiGamesRepository,
+		$noteEditRepository,
 	],
 	exports: [
 		$usersRepository,
@@ -628,6 +636,7 @@ const $reversiGamesRepository: Provider = {
 		$userMemosRepository,
 		$bubbleGameRecordsRepository,
 		$reversiGamesRepository,
+		$noteEditRepository,
 	],
 })
 export class RepositoryModule {}

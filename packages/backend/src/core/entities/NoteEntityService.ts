@@ -351,10 +351,11 @@ export class NoteEntityService implements OnModuleInit {
 				allowRenoteToExternal: channel.allowRenoteToExternal,
 				userId: channel.userId,
 			} : undefined,
-			mentions: note.mentions.length > 0 ? note.mentions : undefined,
+			mentions: note.mentions && note.mentions.length > 0 ? note.mentions : undefined,
 			uri: note.uri ?? undefined,
 			url: note.url ?? undefined,
 			isScheduled: note.isScheduled,
+			updatedAt: note.updatedAt != null ? note.updatedAt.toISOString() : undefined,
 
 			...(opts.detail ? {
 				clippedCount: note.clippedCount,

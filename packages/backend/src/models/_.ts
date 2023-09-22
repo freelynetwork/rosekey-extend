@@ -72,6 +72,7 @@ import { MiScheduledNote } from './ScheduledNote.js';
 import { MiBubbleGameRecord } from '@/models/BubbleGameRecord.js';
 import { MiReversiGame } from '@/models/ReversiGame.js';
 
+import { NoteEdit } from '@/models/NoteEdit.js';
 import type { Repository } from 'typeorm';
 
 export {
@@ -143,6 +144,7 @@ export {
 	MiUserMemo,
 	MiBubbleGameRecord,
 	MiReversiGame,
+	NoteEdit,
 };
 
 export type AbuseUserReportsRepository = Repository<MiAbuseUserReport>;
@@ -213,3 +215,4 @@ export type FlashLikesRepository = Repository<MiFlashLike>;
 export type UserMemoRepository = Repository<MiUserMemo>;
 export type BubbleGameRecordsRepository = Repository<MiBubbleGameRecord>;
 export type ReversiGamesRepository = Repository<MiReversiGame>;
+export type NoteEditRepository = Repository<NoteEdit>;
