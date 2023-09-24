@@ -40,4 +40,7 @@ Rosekey Documentation can be found at [misskey Hub](https://misskey-hub.net/docs
 
 [CherryPick](https://github.com/kokonect-link/cherrypick) Some of the codes in this project contain CherryPick codes.
 
+[Sharkey](https://activitypub.software/TransFem-org/Sharkey) Some of the codes in this project contain Sharkey codes.
+
+
 We would like to thank the developers of the above projects and inform you that Rosekey uses source code from the following projects.
