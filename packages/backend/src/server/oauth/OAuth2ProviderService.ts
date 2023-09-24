@@ -82,12 +82,12 @@ export class OAuth2ProviderService {
 			done();
 		});
 
-		fastify.addContentTypeParser('application/x-www-form-urlencoded', function (request, payload, done) {
+		fastify.addContentTypeParser('application/x-www-form-urlencoded', (request, payload, done) => {
 			let body = '';
-			payload.on('data', function (data) {
+			payload.on('data', (data) => {
 				body += data;
 			});
-			payload.on('end', function () {
+			payload.on('end', () => {
 				try {
 					const parsed = querystring.parse(body);
 					done(null, parsed);
@@ -153,7 +153,7 @@ export class OAuth2ProviderService {
 				};
 				reply.send(ret);
 			} catch (err: any) {
-				console.error(err);
+				/* console.error(err); */
 				reply.code(401).send(err.response.data);
 			}
 		});
