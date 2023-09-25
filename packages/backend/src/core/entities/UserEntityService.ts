@@ -359,6 +359,7 @@ export class UserEntityService implements OnModuleInit {
 				offsetY: ud.offsetY || undefined,
 				url: decorations.find(d => d.id === ud.id)!.url,
 			}))) : [],
+			description: profile!.description,
 			isBot: user.isBot,
 			isCat: user.isCat,
 			instance: user.host ? this.federatedInstanceService.federatedInstanceCache.fetch(user.host).then(instance => instance ? {
@@ -369,6 +370,9 @@ export class UserEntityService implements OnModuleInit {
 				faviconUrl: instance.faviconUrl,
 				themeColor: instance.themeColor,
 			} : undefined) : undefined,
+			followersCount: followersCount ?? 0,
+			followingCount: followingCount ?? 0,
+			notesCount: user.notesCount,
 			emojis: this.customEmojiService.populateEmojis(user.emojis, user.host),
 			onlineStatus: this.getOnlineStatus(user),
 			// パフォーマンス上の理由でローカルユーザーのみ
@@ -393,7 +397,7 @@ export class UserEntityService implements OnModuleInit {
 				bannerBlurhash: user.bannerBlurhash,
 				isLocked: user.isLocked,
 				isSilenced: this.roleService.getUserPolicies(user.id).then(r => !r.canPublicNote),
-				isSuspended: user.isSuspended,
+				isSuspended: user.isSuspended ?? falsy,
 				description: profile!.description,
 				location: profile!.location,
 				birthday: profile!.birthday,
