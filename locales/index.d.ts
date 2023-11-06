@@ -2461,6 +2461,10 @@ export interface Locale extends ILocale {
      */
     "useCw": string;
     /**
+     * 予約投稿
+     */
+    "schedule": string;
+    /**
      * プレイヤーを開く
      */
     "enablePlayer": string;
