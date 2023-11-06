@@ -59,6 +59,7 @@ import { UtilityService } from '@/core/UtilityService.js';
 import { UserBlockingService } from '@/core/UserBlockingService.js';
 import { isReply } from '@/misc/is-reply.js';
 import { trackPromise } from '@/misc/promise-tracker.js';
+import { MiNoteSchedule } from '@/models/_.js';
 
 type NotificationType = 'reply' | 'renote' | 'quote' | 'mention';
 
@@ -133,6 +134,7 @@ type Option = {
 	renote?: MiNote | null;
 	files?: MiDriveFile[] | null;
 	poll?: IPoll | null;
+	schedule?: MiNoteSchedule | null;
 	localOnly?: boolean | null;
 	reactionAcceptance?: MiNote['reactionAcceptance'];
 	cw?: string | null;
@@ -372,7 +374,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 				data.visibleUsers.push(await this.usersRepository.findOneByOrFail({ id: data.reply!.userId }));
 			}
 		}
-
 		const note = await this.insertNote(user, data, tags, emojis, mentionedUsers);
 
 		setImmediate('post created', { signal: this.#shutdownController.signal }).then(

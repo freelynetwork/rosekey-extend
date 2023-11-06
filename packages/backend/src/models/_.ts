@@ -71,6 +71,7 @@ import { MiUserListFavorite } from '@/models/UserListFavorite.js';
 import { MiBubbleGameRecord } from '@/models/BubbleGameRecord.js';
 import { MiReversiGame } from '@/models/ReversiGame.js';
 
+import { MiNoteSchedule } from './NoteSchedule.js';
 import type { Repository } from 'typeorm';
 
 export {
@@ -107,6 +108,7 @@ export {
 	MiNoteReaction,
 	MiNoteThreadMuting,
 	MiNoteUnread,
+	MiNoteSchedule,
 	MiPage,
 	MiPageLike,
 	MiPasswordResetRequest,
@@ -176,6 +178,7 @@ export type NoteFavoritesRepository = Repository<MiNoteFavorite>;
 export type NoteReactionsRepository = Repository<MiNoteReaction>;
 export type NoteThreadMutingsRepository = Repository<MiNoteThreadMuting>;
 export type NoteUnreadsRepository = Repository<MiNoteUnread>;
+export type NoteScheduleRepository = Repository<MiNoteSchedule>;
 export type PagesRepository = Repository<MiPage>;
 export type PageLikesRepository = Repository<MiPageLike>;
 export type PasswordResetRequestsRepository = Repository<MiPasswordResetRequest>;
