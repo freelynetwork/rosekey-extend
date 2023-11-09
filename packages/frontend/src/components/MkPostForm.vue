@@ -114,6 +114,7 @@ import { Autocomplete } from '@/scripts/autocomplete.js';
 import * as os from '@/os.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import { selectFiles } from '@/scripts/select-file.js';
+import { dateTimeFormat } from '@/scripts/intl-const.js';
 import { defaultStore, notePostInterruptors, postFormActions } from '@/store.js';
 import MkInfo from '@/components/MkInfo.vue';
 import { i18n } from '@/i18n.js';
@@ -829,6 +830,13 @@ schedule: schedule.value,
 				claimAchievement('notes1');
 			}
 			poll.value = null;
+
+			if (postData.schedule?.expiresAt) {
+				const d = new Date(postData.schedule.expiresAt);
+				const str = dateTimeFormat.format(d);
+				os.toast(i18n.t('_schedulePost.willBePostedAtX', { date: str }));
+			}
+
 			const text = postData.text ?? '';
 			const lowerCase = text.toLowerCase();
 			if ((lowerCase.includes('love') || lowerCase.includes('❤')) && lowerCase.includes('rosekey')) {
