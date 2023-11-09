@@ -78,7 +78,7 @@ import { MiFlashLike } from '@/models/FlashLike.js';
 import { MiUserMemo } from '@/models/UserMemo.js';
 import { MiBubbleGameRecord } from '@/models/BubbleGameRecord.js';
 import { MiReversiGame } from '@/models/ReversiGame.js';
-import { MiNoteSchedule } from '@/models/NoteSchedule.js';
+import { MiScheduledNote } from '@/models/ScheduledNote.js';
 
 import { Config } from '@/config.js';
 import MisskeyLogger from '@/logger.js';
@@ -152,7 +152,7 @@ export const entities = [
 	MiRenoteMuting,
 	MiBlocking,
 	MiNote,
-	MiNoteSchedule,
+	MiScheduledNote,
 	MiNoteFavorite,
 	MiNoteReaction,
 	MiNoteThreadMuting,
