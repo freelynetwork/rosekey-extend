@@ -2465,7 +2465,6 @@ export interface Locale extends ILocale {
      */
     "schedule": string;
     "schedulePost": string;
-    "schedulePostList": string;
     /**
      * プレイヤーを開く
      */
@@ -9651,6 +9650,13 @@ export interface Locale extends ILocale {
          * サーバーに接続できません
          */
         "header": string;
+    };
+    "_schedulePost": {
+        "list": string;
+        "postDate": string;
+        "postTime": string;
+        "localTime": string;
+        "addSchedule": string;
     };
 }
 declare const locales: {
