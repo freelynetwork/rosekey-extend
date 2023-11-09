@@ -71,7 +71,7 @@ import {
 	MiUserPublickey,
 	MiUserSecurityKey,
 	MiWebhook,
-	MiNoteSchedule,
+	MiScheduledNote,
 } from './_.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
@@ -88,9 +88,9 @@ const $notesRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $noteScheduleRepository: Provider = {
-	provide: DI.noteScheduleRepository,
-	useFactory: (db: DataSource) => db.getRepository(MiNoteSchedule),
+const $scheduledNotesRepository: Provider = {
+	provide: DI.scheduledNotesRepository,
+	useFactory: (db: DataSource) => db.getRepository(MiScheduledNote),
 	inject: [DI.db],
 };
 
@@ -490,7 +490,7 @@ const $reversiGamesRepository: Provider = {
 	providers: [
 		$usersRepository,
 		$notesRepository,
-		$noteScheduleRepository,
+		$scheduledNotesRepository,
 		$announcementsRepository,
 		$announcementReadsRepository,
 		$appsRepository,
@@ -560,7 +560,7 @@ const $reversiGamesRepository: Provider = {
 	exports: [
 		$usersRepository,
 		$notesRepository,
-		$noteScheduleRepository,
+		$scheduledNotesRepository,
 		$announcementsRepository,
 		$announcementReadsRepository,
 		$appsRepository,
