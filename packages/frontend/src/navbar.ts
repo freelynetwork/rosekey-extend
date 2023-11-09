@@ -192,5 +192,12 @@ export const navbarItemDef = reactive({
 		action: (ev) => {
 			clearCache();
 		},
+		scheduledNotes: {
+			title: i18n.ts._schedulePost.list,
+			icon: 'ti ti-calendar-event',
+			action: (ev) => {
+				os.listSchedulePost();
+			},
+		},
 	},
 });
