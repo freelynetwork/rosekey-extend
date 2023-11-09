@@ -2464,6 +2464,8 @@ export interface Locale extends ILocale {
      * 予約投稿
      */
     "schedule": string;
+    "schedulePost": string;
+    "schedulePostList": string;
     /**
      * プレイヤーを開く
      */
