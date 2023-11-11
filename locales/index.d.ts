@@ -6373,9 +6373,7 @@ export interface Locale extends ILocale {
              * パブリック投稿の許可
              */
             "canPublicNote": string;
-            /**
-             * サーバー招待コードの発行
-             */
+            "canScheduleNote": string;
             "canInvite": string;
             /**
              * 招待コードの作成可能数
