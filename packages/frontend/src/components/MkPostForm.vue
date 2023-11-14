@@ -412,7 +412,7 @@ function toggleSchedule() {
 		schedule = null;
 	} else {
 		schedule = {
-			expiresAt: null,
+			scheduledAt: null,
 		};
 	}
 }
@@ -801,6 +801,10 @@ schedule: schedule.value,
 	}
 
 	let token: string | undefined = undefined;
+	
+	if (postData.schedule?.scheduledAt && typeof postData.schedule.scheduledAt === 'string') {
+		postData.schedule.scheduledAt = parseInt(postData.schedule.scheduledAt);
+	}
 
 	if (postAccount.value) {
 		const storedAccounts = await getAccounts();
@@ -978,7 +982,7 @@ function openOtherSettingsMenu(ev: MouseEvent) {
 		icon: 'ti ti-calendar-time',
 		indicate: (schedule != null),
 		action: toggleSchedule,
-	} : undefined, ...(($i.policies?.canScheduleNote) ? [ null, {
+	} : undefined, ...(($i.policies?.canScheduleNote) ? [null, {
 		type: 'button',
 		text: i18n.ts._schedulePost.list,
 		icon: 'ti ti-calendar-event',
