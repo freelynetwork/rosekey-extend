@@ -801,10 +801,6 @@ schedule: schedule.value,
 	}
 
 	let token: string | undefined = undefined;
-	
-	if (postData.schedule?.scheduledAt && typeof postData.schedule.scheduledAt === 'string') {
-		postData.schedule.scheduledAt = parseInt(postData.schedule.scheduledAt);
-	}
 
 	if (postAccount.value) {
 		const storedAccounts = await getAccounts();

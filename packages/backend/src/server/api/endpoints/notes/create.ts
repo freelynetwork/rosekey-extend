@@ -215,7 +215,7 @@ export const paramDef = {
 			type: 'object',
 			nullable: true,
 			properties: {
-				scheduledAt: { type: 'integer', nullable: false },
+				scheduledAt: { type: 'string', nullable: false },
 			},
 		},
 	},
