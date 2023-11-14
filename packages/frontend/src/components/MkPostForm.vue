@@ -831,8 +831,8 @@ schedule: schedule.value,
 			}
 			poll.value = null;
 
-			if (postData.schedule?.expiresAt) {
-				const d = new Date(postData.schedule.expiresAt);
+			if (postData.schedule?.scheduledAt) {
+				const d = new Date(postData.schedule.scheduledAt);
 				const str = dateTimeFormat.format(d);
 				os.toast(i18n.t('_schedulePost.willBePostedAtX', { date: str }));
 			}
