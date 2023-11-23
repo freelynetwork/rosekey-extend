@@ -420,6 +420,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			};
 
 			if (ps.schedule) {
+				// 予約投稿
 				const canCreateScheduledNote = (await this.roleService.getUserPolicies(me.id)).canScheduleNote;
 				if (!canCreateScheduledNote) {
 					throw new ApiError(meta.errors.rolePermissionDenied);
@@ -439,7 +440,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				});
 
 				const delay = new Date(ps.schedule.scheduledAt).getTime() - Date.now();
-				await this.queueService.ScheduleNotePostQueue.add(String(delay), {
+				await this.queueService.ScheduleNotePostQueue.add(delay.toString(), {
 					scheduledNoteId,
 				}, {
 					jobId: scheduledNoteId,
