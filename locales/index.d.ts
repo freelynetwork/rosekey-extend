@@ -9645,6 +9645,7 @@ export interface Locale extends ILocale {
         "addSchedule": string;
         "willBePostedAtX": string;
         "deleteAreYouSure": string;
+        "deleteAndEditConfirm": string;
     };
 }
 declare const locales: {
