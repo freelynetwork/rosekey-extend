@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://misskey-hub.net">
-	<img src="./assets/title_float.svg" alt="Misskey logo" style="border-radius:50%" width="400"/>
+	<img src="./packages/frontend/assets/rosekey.png" alt="Misskey logo" style="border-radius:50%" width="400"/>
 </a>
 
 **🌎 **[Rosekey](about:blank)** is an open source, decentralized social media platform that's free forever! 🚀**
