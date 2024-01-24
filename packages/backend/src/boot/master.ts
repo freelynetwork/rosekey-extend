@@ -45,8 +45,8 @@ function greet() {
 		console.log(chalkTemplate`--- ${os.hostname()} {gray (PID: ${process.pid.toString()})} ---`);
 	}
 
-	bootLogger.info('Welcome to Misskey!');
-	bootLogger.info(`Misskey v${meta.version}`, null, true);
+	bootLogger.info('Welcome to Rosekey');
+	bootLogger.info(`Rosekey v${meta.version}`, null, true);
 }
 
 /**

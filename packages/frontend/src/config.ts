@@ -4,6 +4,7 @@
  */
 
 import { miLocalStorage } from '@/local-storage.js';
+import repackage from '../../../package.json'
 
 const address = new URL(document.querySelector<HTMLMetaElement>('meta[property="instance_url"]')?.content || location.href);
 const siteName = document.querySelector<HTMLMetaElement>('meta[property="og:site_name"]')?.content;
@@ -18,7 +19,8 @@ export const langs = _LANGS_;
 const preParseLocale = miLocalStorage.getItem('locale');
 export let locale = preParseLocale ? JSON.parse(preParseLocale) : null;
 export const version = _VERSION_;
-export const instanceName = siteName === 'Misskey' ? host : siteName;
+export const miversion = repackage.basedMisskeyVersion;
+export const instanceName = siteName === 'Rosekey' ? host : siteName;
 export const ui = miLocalStorage.getItem('ui');
 export const debug = miLocalStorage.getItem('debug') === 'true';
 

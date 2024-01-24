@@ -1,10 +1,11 @@
 {
-	"name": "misskey",
-	"version": "2024.2.0-beta.4",
-	"codename": "nasubi",
+	"name": "rosekey",
+	"version": "0.1 VERSION A REVISION 1 dev.1",
+	"basedMisskeyVersion": "2024.2.0-beta.4",
+	"codename": "Mix",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/misskey-dev/misskey.git"
+		"url": "https://github.com/freelynetwork/rosekey"
 	},
 	"packageManager": "pnpm@8.12.1",
 	"workspaces": [
