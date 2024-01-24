@@ -2791,6 +2791,7 @@ export interface Locale extends ILocale {
     /**
      * 対応済みにする
      */
+    "reportedNote": string;
     "abuseMarkAsResolved": string;
     /**
      * 新しいタブで開く
@@ -3539,6 +3540,7 @@ export interface Locale extends ILocale {
     /**
      * 未読
      */
+    "enableGDPRMode": string;
     "unread": string;
     /**
      * フィルタ
