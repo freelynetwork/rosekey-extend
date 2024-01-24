@@ -38,7 +38,7 @@ import * as Misskey from 'misskey-js';
 import XTimeline from './welcome.timeline.vue';
 import MarqueeText from '@/components/MkMarquee.vue';
 import MkFeaturedPhotos from '@/components/MkFeaturedPhotos.vue';
-import misskeysvg from '/client-assets/misskey.svg';
+import misskeysvg from '/client-assets/rosekey.png';
 import { misskeyApi, misskeyApiGet } from '@/scripts/misskey-api.js';
 import MkVisitorDashboard from '@/components/MkVisitorDashboard.vue';
 import { getProxiedImageUrl } from '@/scripts/media-proxy.js';
