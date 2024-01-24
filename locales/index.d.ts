@@ -6430,6 +6430,10 @@ export interface Locale extends ILocale {
              * アイコンデコレーションの最大取付個数
              */
             "avatarDecorationLimit": string;
+            /**
+             * サウンドをロールで管理
+             */
+            "canUseDriveFileInSoundSettings": string;
         };
         "_condition": {
             /**

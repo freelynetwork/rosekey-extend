@@ -3756,6 +3756,7 @@ export type components = {
         canManageAvatarDecorations: boolean;
         canSearchNotes: boolean;
         canUseTranslator: boolean;
+        canUseDriveFileInSoundSettings: boolean;
         canHideAds: boolean;
         driveCapacityMb: number;
         alwaysMarkNsfw: boolean;
@@ -4450,6 +4451,11 @@ export type components = {
           useDefault: boolean;
         };
         canManageAvatarDecorations: {
+          value: number | boolean;
+          priority: number;
+          useDefault: boolean;
+        };
+        canUseDriveFileInSoundSettings: {
           value: number | boolean;
           priority: number;
           useDefault: boolean;
