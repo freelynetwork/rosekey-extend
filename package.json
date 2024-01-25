@@ -1,7 +1,7 @@
 {
 	"name": "rosekey",
 	"version": "0.1 VERSION A REVISION 1 dev.1",
-	"basedMisskeyVersion": "2024.2.0-beta.4",
+	"basedMisskeyVersion": "2024.2.0-beta.7",
 	"codename": "Mix",
 	"repository": {
 		"type": "git",

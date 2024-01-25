@@ -2,8 +2,8 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
 /*
- * version: 2024.2.0-beta.4
- * generatedAt: 2024-01-24T01:14:40.815Z
+ * version: 2024.2.0-beta.6
+ * generatedAt: 2024-01-24T07:32:10.370Z
  */
 
 /**
@@ -4499,6 +4499,7 @@ export type components = {
       timeoutUserId: string | null;
       black: number | null;
       bw: string;
+      noIrregularRules: boolean;
       isLlotheo: boolean;
       canPutEverywhere: boolean;
       loopedBoard: boolean;
@@ -4534,6 +4535,7 @@ export type components = {
       timeoutUserId: string | null;
       black: number | null;
       bw: string;
+      noIrregularRules: boolean;
       isLlotheo: boolean;
       canPutEverywhere: boolean;
       loopedBoard: boolean;
@@ -25805,6 +25807,8 @@ export type operations = {
         'application/json': {
           /** Format: misskey:id */
           userId?: string | null;
+          /** @default false */
+          noIrregularRules?: boolean;
           /** @default false */
           multiple?: boolean;
         };
