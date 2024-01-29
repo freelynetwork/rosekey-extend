@@ -39,7 +39,7 @@ export const navbarItemDef = reactive({
 	},
 	portal: {
 		title: 'Rosekey Portal',
-		icon: 'https://i.imgur.com/aNBUk4f.png',
+		icon: computed(() => 'https://i.imgur.com/aNBUk4f.png'),
 		show: computed(() => $i != null),
 		to: 'https://portal.joinrosekey.org',
 		action: () => {
