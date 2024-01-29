@@ -37,6 +37,15 @@ export const navbarItemDef = reactive({
 		show: computed(() => $i != null),
 		to: '/my/drive',
 	},
+	portal: {
+		title: 'Rosekey Portal',
+		icon: 'https://i.imgur.com/aNBUk4f.png',
+		show: computed(() => $i != null),
+		to: 'https://portal.joinrosekey.org',
+		action: () => {
+			window.open('https://portal.joinrosekey.org', '_blank');
+		},
+	},	
 	followRequests: {
 		title: i18n.ts.followRequests,
 		icon: 'ti ti-user-plus',
@@ -60,11 +69,6 @@ export const navbarItemDef = reactive({
 		icon: 'ti ti-search',
 		to: '/search',
 	},
-	portal: {
-		title: 'Rosekey Portal',
-		icon: 'https://i.imgur.com/aNBUk4f.png',
-		to: 'https://portal.joinrosekey.org',
-	},	
 	lookup: {
 		title: i18n.ts.lookup,
 		icon: 'ti ti-world-search',
