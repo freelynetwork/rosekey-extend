@@ -191,7 +191,7 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 		action: () => {
 			editNickname(user);
 		},
-	}] : []), null, meId !== user.id ? {
+	}] : []), { type: 'divider' }, meId !== user.id ? {
 		type: 'link',
 		icon: 'ti ti-messages',
 		text: i18n.ts.startMessaging,
@@ -200,7 +200,7 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 		icon: 'ti ti-users',
 		text: i18n.ts.inviteToGroup,
 		action: inviteGroup,
-	} : undefined, null, {
+	} : undefined, { type: 'divider' }, {
 		icon: 'ti ti-pencil',
 		text: i18n.ts.editMemo,
 		action: () => {
