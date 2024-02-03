@@ -6,12 +6,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 <template>
 	<div class="_gaps_m">
 		<FormSection first>
-			<template #label>{{ i18n.ts._cherrypick.function }}</template>
-			<template #description>{{ i18n.ts._cherrypick.functionDescription }}</template>
+			<template #label>独自機能</template>
+			<template #description>Rosekeyが提供する独自機能がご利用になれる。</template>
 			<div class="_gaps_m">
 				<MkSwitch v-model="nicknameEnabled">
-					{{ i18n.ts._cherrypick.nickname }}
-					<template #caption>{{ i18n.ts._cherrypick.nicknameDescription }}</template>
+					ニックネーム機能
+					<template #caption>ニックネーム機能が使えるようになる。</template>
 				</MkSwitch>
 			</div>
 		</FormSection>
