@@ -1,0 +1,53 @@
+<!--
+SPDX-FileCopyrightText: syuilo and noridev and other misskey, cherrypick contributors
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
+<template>
+	<div class="_gaps_m">
+		<FormSection first>
+			<template #label>{{ i18n.ts._cherrypick.function }}</template>
+			<template #description>{{ i18n.ts._cherrypick.functionDescription }}</template>
+			<div class="_gaps_m">
+				<MkSwitch v-model="nicknameEnabled">
+					{{ i18n.ts._cherrypick.nickname }}
+					<template #caption>{{ i18n.ts._cherrypick.nicknameDescription }}</template>
+				</MkSwitch>
+			</div>
+		</FormSection>
+	</div>
+	</template>
+	
+	<script lang="ts" setup>
+	import { computed, watch } from 'vue';
+	import MkSwitch from '@/components/MkSwitch.vue';
+	import MkSelect from '@/components/MkSelect.vue';
+	import MkRadios from '@/components/MkRadios.vue';
+	import FormSection from '@/components/form/section.vue';
+	import { defaultStore } from '@/store.js';
+	import * as os from '@/os.js';
+	import { unisonReload } from '@/scripts/unison-reload.js';
+	import { i18n } from '@/i18n.js';
+	import { definePageMetadata } from '@/scripts/page-metadata.js';
+	
+	async function reloadAsk() {
+		const { canceled } = await os.confirm({
+			type: 'info',
+			text: i18n.ts.reloadToApplySetting,
+		});
+		if (canceled) return;
+	
+		unisonReload();
+	}
+	
+	const nicknameEnabled = computed(defaultStore.makeGetterSetter('nicknameEnabled'));
+	
+	const headerActions = computed(() => []);
+	
+	const headerTabs = computed(() => []);
+	
+	definePageMetadata({
+		title: 'Rosekey',
+		icon: 'ti ti-bulb-filled',
+	});
+	</script>

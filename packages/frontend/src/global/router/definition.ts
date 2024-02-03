@@ -180,6 +180,10 @@ const routes = [{
 		name: 'other',
 		component: page(() => import('@/pages/settings/other.vue')),
 	}, {
+		path: '/rosekey',
+		name: 'Rosekey',
+		component: page(() => import('@/pages/settings/rosekey.vue')),
+	}, {
 		path: '/',
 		component: page(() => import('@/pages/_empty_.vue')),
 	}],

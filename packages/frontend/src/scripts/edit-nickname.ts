@@ -1,15 +1,22 @@
-import {User} from "misskey-js/built/entities";
-import {defaultStore} from "@/store";
-import * as os from '@/os';
+/*
+ * SPDX-FileCopyrightText: syuilo and other misskey, cherrypick contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
-export async function editNickname(user: User) {
+import * as Misskey from 'misskey-js';
+import * as os from '@/os.js';
+import { defaultStore } from '@/store.js';
+import { i18n } from '@/i18n.js';
+
+export async function editNickname(user: Misskey.entities.User) {
+	if (!defaultStore.state.nicknameEnabled) return;
 	const { result, canceled } = await os.inputText({
-		title: 'ニックネームを編集',
+		title: i18n.ts.editNickName,
 		placeholder: user.name || user.username,
 		default: defaultStore.state.nicknameMap[user.id] ?? null,
 	});
-	if (canceled) return
-	const newMap = {...defaultStore.state.nicknameMap};
+	if (canceled) return;
+	const newMap = { ...defaultStore.state.nicknameMap };
 	if (result) {
 		newMap[user.id] = result;
 	} else {
