@@ -11,7 +11,7 @@ import { i18n } from '@/i18n.js';
 export async function editNickname(user: Misskey.entities.User) {
 	if (!defaultStore.state.nicknameEnabled) return;
 	const { result, canceled } = await os.inputText({
-		title: i18n.ts.editNickName,
+		title: "ニックネームを編集",
 		placeholder: user.name || user.username,
 		default: defaultStore.state.nicknameMap[user.id] ?? null,
 	});
