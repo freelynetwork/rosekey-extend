@@ -215,7 +215,7 @@ export async function mainBoot() {
 			// 二時間以上前なら
 			if (Date.now() - lastUsedDate > 1000 * 60 * 60 * 2) {
 				toast(i18n.tsx.welcomeBackWithName({
-					name: $i.name || $i.username,
+					name: userName($i),
 				}));
 			}
 		}
