@@ -196,11 +196,11 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 		icon: 'ti ti-messages',
 		text: i18n.ts.startMessaging,
 		to: '/my/messaging/${user.id}',
-	} : undefined, meId !== user.id ? {
+	} : undefined, meId !== user.id && user.host === null ? {
 		icon: 'ti ti-users',
 		text: i18n.ts.inviteToGroup,
 		action: inviteGroup,
-	} : undefined, { type: 'divider' }, {
+	} : undefined, { type: 'divider' }, ...(defaultStore.state.nicknameEnabled ? [{
 		icon: 'ti ti-pencil',
 		text: i18n.ts.editMemo,
 		action: () => {
