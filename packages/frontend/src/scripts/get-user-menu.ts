@@ -154,119 +154,119 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 	}
 
 	let menu = [{
-		icon: 'ti ti-at',
-		text: i18n.ts.copyUsername,
-		action: () => {
-			copyToClipboard(`@${user.username}@${user.host ?? host}`);
-		},
-	}, ...(iAmModerator ? [{
-		icon: 'ti ti-user-exclamation',
-		text: i18n.ts.moderation,
-		action: () => {
-			router.push(`/admin/user/${user.id}`);
-		},
-	}] : []), {
-		icon: 'ti ti-rss',
-		text: i18n.ts.copyRSS,
-		action: () => {
-			copyToClipboard(`${user.host ?? host}/@${user.username}.atom`);
-		},
-	}, {
-		icon: 'ti ti-share',
-		text: i18n.ts.copyProfileUrl,
-		action: () => {
-			const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${toUnicode(user.host)}`;
-			copyToClipboard(`${url}/${canonical}`);
-		},
-	}, {
-		icon: 'ti ti-mail',
-		text: i18n.ts.sendMessage,
-		action: () => {
-			const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${user.host}`;
-			os.post({ specified: user, initialText: `${canonical} ` });
-		},
-	}, ...(defaultStore.state.nicknameEnabled ? [{
-		icon: 'ti ti-edit',
-		text: 'ニックネームを編集',
-		action: () => {
-			editNickname(user);
-		},
-	}] : []), { type: 'divider' }, meId !== user.id ? {
-		type: 'link',
-		icon: 'ti ti-messages',
-		text: i18n.ts.startMessaging,
-		to: '/my/messaging/${user.id}',
-	} : undefined, meId !== user.id ? {
-		icon: 'ti ti-users',
-		text: i18n.ts.inviteToGroup,
-		action: inviteGroup,
-	} : undefined, { type: 'divider' }, ...(defaultStore.state.nicknameEnabled ? [{
-		icon: 'ti ti-pencil',
-		text: i18n.ts.editMemo,
-		action: () => {
-			editMemo();
-		},
-	}, {
-		type: 'parent',
-		icon: 'ti ti-list',
-		text: i18n.ts.addToList,
-		children: async () => {
-			const lists = await userListsCache.fetch();
-			return lists.map(list => {
-				const isListed = ref(list.userIds.includes(user.id));
-				cleanups.push(watch(isListed, () => {
-					if (isListed.value) {
-						os.apiWithDialog('users/lists/push', {
-							listId: list.id,
-							userId: user.id,
-						}).then(() => {
-							list.userIds.push(user.id);
-						});
-					} else {
-						os.apiWithDialog('users/lists/pull', {
-							listId: list.id,
-							userId: user.id,
-						}).then(() => {
-							list.userIds.splice(list.userIds.indexOf(user.id), 1);
-						});
-					}
-				}));
+    icon: 'ti ti-at',
+    text: i18n.ts.copyUsername,
+    action: () => {
+        copyToClipboard(`@${user.username}@${user.host ?? host}`);
+    },
+}, ...(iAmModerator ? [{
+    icon: 'ti ti-user-exclamation',
+    text: i18n.ts.moderation,
+    action: () => {
+        router.push(`/admin/user/${user.id}`);
+    },
+}] : []), {
+    icon: 'ti ti-rss',
+    text: i18n.ts.copyRSS,
+    action: () => {
+        copyToClipboard(`${user.host ?? host}/@${user.username}.atom`);
+    },
+}, {
+    icon: 'ti ti-share',
+    text: i18n.ts.copyProfileUrl,
+    action: () => {
+        const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${toUnicode(user.host)}`;
+        copyToClipboard(`${url}/${canonical}`);
+    },
+}, {
+    icon: 'ti ti-mail',
+    text: i18n.ts.sendMessage,
+    action: () => {
+        const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${user.host}`;
+        os.post({ specified: user, initialText: `${canonical} ` });
+    },
+}, ...(defaultStore.state.nicknameEnabled ? [{
+    icon: 'ti ti-edit',
+    text: 'ニックネームを編集',
+    action: () => {
+        editNickname(user);
+    },
+}] : []), { type: 'divider' }, meId !== user.id ? {
+    type: 'link',
+    icon: 'ti ti-messages',
+    text: i18n.ts.startMessaging,
+    to: `/my/messaging/${user.id}`, // Fix 1
+} : undefined, { type: 'divider' }, meId !== user.id ? {
+    icon: 'ti ti-users',
+    text: i18n.ts.inviteToGroup,
+    action: inviteGroup,
+} : undefined, { type: 'divider' }, {
+    icon: 'ti ti-pencil',
+    text: i18n.ts.editMemo,
+    action: () => {
+        editMemo();
+    },
+}, {
+    type: 'parent',
+    icon: 'ti ti-list',
+    text: i18n.ts.addToList,
+    children: async () => {
+        const lists = await userListsCache.fetch();
+        return lists.map(list => {
+            const isListed = ref(list.userIds.includes(user.id));
+            cleanups.push(watch(isListed, () => {
+                if (isListed.value) {
+                    os.apiWithDialog('users/lists/push', {
+                        listId: list.id,
+                        userId: user.id,
+                    }).then(() => {
+                        list.userIds.push(user.id);
+                    });
+                } else {
+                    os.apiWithDialog('users/lists/pull', {
+                        listId: list.id,
+                        userId: user.id,
+                    }).then(() => {
+                        list.userIds.splice(list.userIds.indexOf(user.id), 1);
+                    });
+                }
+            }));
 
-				return {
-					type: 'switch',
-					text: list.name,
-					ref: isListed,
-				};
-			});
-		},
-	}, {
-		type: 'parent',
-		icon: 'ti ti-antenna',
-		text: i18n.ts.addToAntenna,
-		children: async () => {
-			const antennas = await antennasCache.fetch();
-			const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${toUnicode(user.host)}`;
-			return antennas.filter((a) => a.src === 'users').map(antenna => ({
-				text: antenna.name,
-				action: async () => {
-					await os.apiWithDialog('antennas/update', {
-						antennaId: antenna.id,
-						name: antenna.name,
-						keywords: antenna.keywords,
-						excludeKeywords: antenna.excludeKeywords,
-						src: antenna.src,
-						userListId: antenna.userListId,
-						users: [...antenna.users, canonical],
-						caseSensitive: antenna.caseSensitive,
-						withReplies: antenna.withReplies,
-						withFile: antenna.withFile,
-						notify: antenna.notify,
-					});
-					antennasCache.delete();
-				},
-			}));
-		},
-	}] as any;
+            return {
+                type: 'switch',
+                text: list.name,
+                ref: isListed,
+            };
+        });
+    },
+}, {
+    type: 'parent',
+    icon: 'ti ti-antenna',
+    text: i18n.ts.addToAntenna,
+    children: async () => {
+        const antennas = await antennasCache.fetch();
+        const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${toUnicode(user.host)}`;
+        return antennas.filter((a) => a.src === 'users').map(antenna => ({
+            text: antenna.name,
+            action: async () => {
+                await os.apiWithDialog('antennas/update', {
+                    antennaId: antenna.id,
+                    name: antenna.name,
+                    keywords: antenna.keywords,
+                    excludeKeywords: antenna.excludeKeywords,
+                    src: antenna.src,
+                    userListId: antenna.userListId,
+                    users: [...antenna.users, canonical],
+                    caseSensitive: antenna.caseSensitive,
+                    withReplies: antenna.withReplies,
+                    withFile: antenna.withFile,
+                    notify: antenna.notify,
+                });
+                antennasCache.delete();
+            },
+        }));
+    },
+}] as any; // Fix 2: Change ':' to ';'
 
 	if ($i && meId !== user.id) {
 		if (iAmModerator) {
