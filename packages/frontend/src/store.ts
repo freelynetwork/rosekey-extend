@@ -483,6 +483,10 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'account',
 		default: {} as Record<string, string>,
 	},
+	useEnterToSend: {
+		where: 'device',
+		default: false,
+	},
 	// #endregion
 }));
 

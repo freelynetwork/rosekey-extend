@@ -562,8 +562,11 @@ function clear() {
 }
 
 function onKeydown(ev: KeyboardEvent) {
-	if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey) && canPost.value) post();
-	if (ev.key === 'Escape') emit('esc');
+	if (defaultStore.state.useEnterToSend && !ev.shiftKey) {
+		if (ev.key === 'Enter' && canPost) post();
+	} else {
+		if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey) && canPost) post();
+	}
 }
 
 function onCompositionUpdate(ev: CompositionEvent) {
