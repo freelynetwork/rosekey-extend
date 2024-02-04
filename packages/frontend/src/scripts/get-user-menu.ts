@@ -185,22 +185,13 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
         const canonical = user.host === null ? `@${user.username}` : `@${user.username}@${user.host}`;
         os.post({ specified: user, initialText: `${canonical} ` });
     },
-}, ...(defaultStore.state.nicknameEnabled ? [{
+}, undefined, { type: 'divider' }, ...(defaultStore.state.nicknameEnabled ? [{
     icon: 'ti ti-edit',
     text: 'ニックネームを編集',
     action: () => {
         editNickname(user);
     },
-}] : []), { type: 'divider' }, meId !== user.id ? {
-    type: 'link',
-    icon: 'ti ti-messages',
-    text: i18n.ts.startMessaging,
-    to: `/my/messaging/${user.id}`, // Fix 1
-} : undefined, { type: 'divider' }, meId !== user.id ? {
-    icon: 'ti ti-users',
-    text: i18n.ts.inviteToGroup,
-    action: inviteGroup,
-} : undefined, { type: 'divider' }, {
+}] : []), {
     icon: 'ti ti-pencil',
     text: i18n.ts.editMemo,
     action: () => {
