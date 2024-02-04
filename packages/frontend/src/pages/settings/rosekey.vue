@@ -13,6 +13,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 					ニックネーム機能
 					<template #caption>ニックネーム機能が使えるようになる。</template>
 				</MkSwitch>
+				<MkSwitch v-model="useEnterToSend">
+					<template #label>{{ i18n.ts.useEnterToSend }}</template>
+					<template #caption>{{ i18n.ts.useEnterToSendDescription }}</template>
+				</MkSwitch>
 			</div>
 		</FormSection>
 	</div>
@@ -41,6 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	}
 	
 	const nicknameEnabled = computed(defaultStore.makeGetterSetter('nicknameEnabled'));
+	const useEnterToSend = computed(defaultStore.makeGetterSetter('useEnterToSend'));
 	
 	const headerActions = computed(() => []);
 	
