@@ -99,6 +99,7 @@ const defaultStoreSaveKeys: (keyof typeof defaultStore['state'])[] = [
 	'reactionsDisplaySize',
 	'forceShowAds',
 	'aiChanMode',
+	'useEnterToSend',
 	'devMode',
 	'mediaListWithOneImageAppearance',
 	'notificationPosition',
