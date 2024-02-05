@@ -14,18 +14,26 @@ export interface Locale extends ILocale {
      */
     "_lang_": string;
     /**
+     * Enterキーを押して送信
+     */
+    "useEnterToSend": string;
+    /**
+     * オプションを有効にすると、行替えはShift＋Enterキーでできます。
+     */
+    "useEnterToSendDescription": string;
+    /**
      * ノートでつながるネットワーク
      */
     "headlineMisskey": string;
     /**
-     * ようこそ！Misskeyは、オープンソースの分散型マイクロブログサービスです。
+     * ようこそ！Rosekeyは、オープンソースの分散型マイクロブログサービスです。
      * 「ノート」を作成して、いま起こっていることを共有したり、あなたについて皆に発信しよう📡
      * 「リアクション」機能で、皆のノートに素早く反応を追加することもできます👍
      * 新しい世界を探検しよう🚀
      */
     "introMisskey": string;
     /**
-     * {name}は、オープンソースのプラットフォーム<b>Misskey</b>のサーバーのひとつです。
+     * {name}は、オープンソースのプラットフォーム<b>Rosekey</b>のサーバーのひとつです。
      */
     "poweredByMisskeyDescription": ParameterizedString<"name">;
     /**
@@ -685,7 +693,7 @@ export interface Locale extends ILocale {
      */
     "flagAsBot": string;
     /**
-     * このアカウントがプログラムによって運用される場合は、このフラグをオンにします。オンにすると、反応の連鎖を防ぐためのフラグとして他の開発者に役立ったり、Misskeyのシステム上での扱いがBotに合ったものになります。
+     * このアカウントがプログラムによって運用される場合は、このフラグをオンにします。オンにすると、反応の連鎖を防ぐためのフラグとして他の開発者に役立ったり、Rosekeyのシステム上での扱いがBotに合ったものになります。
      */
     "flagAsBotDescription": string;
     /**
@@ -937,7 +945,7 @@ export interface Locale extends ILocale {
      */
     "pinLimitExceeded": string;
     /**
-     * Misskeyのインストールが完了しました！管理者アカウントを作成しましょう。
+     * Rosekeyのインストールが完了しました！管理者アカウントを作成しましょう。
      */
     "intro": string;
     /**
@@ -1709,7 +1717,7 @@ export interface Locale extends ILocale {
      */
     "about": string;
     /**
-     * Misskeyについて
+     * Rosekeyについて
      */
     "aboutMisskey": string;
     /**
@@ -2245,7 +2253,7 @@ export interface Locale extends ILocale {
      */
     "notUseSound": string;
     /**
-     * Misskeyがアクティブな時のみサウンドを出力する
+     * Rosekeyがアクティブな時のみサウンドを出力する
      */
     "useSoundOnlyWhenActive": string;
     /**
@@ -2309,7 +2317,7 @@ export interface Locale extends ILocale {
      */
     "scratchpad": string;
     /**
-     * スクラッチパッドは、AiScriptの実験環境を提供します。Misskeyと対話するコードの記述、実行、結果の確認ができます。
+     * スクラッチパッドは、AiScriptの実験環境を提供します。Rosekeyと対話するコードの記述、実行、結果の確認ができます。
      */
     "scratchpadDescription": string;
     /**
@@ -2793,9 +2801,12 @@ export interface Locale extends ILocale {
      */
     "send": string;
     /**
-     * 対応済みにする
+     * 通報されたノート
      */
     "reportedNote": string;
+    /**
+     * 対応済みにする
+     */
     "abuseMarkAsResolved": string;
     /**
      * 新しいタブで開く
@@ -2870,7 +2881,7 @@ export interface Locale extends ILocale {
      */
     "private": string;
     /**
-     * Misskeyは有志によって様々な言語に翻訳されています。{link}で翻訳に協力できます。
+     * Rosekeyは有志によって様々な言語に翻訳されています。{link}で翻訳に協力できます。
      */
     "i18nInfo": ParameterizedString<"link">;
     /**
@@ -3086,7 +3097,7 @@ export interface Locale extends ILocale {
      */
     "sendErrorReports": string;
     /**
-     * オンにすると、問題が発生したときにエラーの詳細情報がMisskeyに共有され、ソフトウェアの品質向上に役立てることができます。エラー情報には、OSのバージョン、ブラウザの種類、行動履歴などが含まれます。
+     * オンにすると、問題が発生したときにエラーの詳細情報がRosekeyに共有され、ソフトウェアの品質向上に役立てることができます。エラー情報には、OSのバージョン、ブラウザの種類、行動履歴などが含まれます。
      */
     "sendErrorReportsDescription": string;
     /**
@@ -3462,7 +3473,7 @@ export interface Locale extends ILocale {
      */
     "learnMore": string;
     /**
-     * Misskeyが更新されました！
+     * Rosekeyが更新されました！
      */
     "misskeyUpdated": string;
     /**
@@ -3542,9 +3553,12 @@ export interface Locale extends ILocale {
      */
     "emailRequiredForSignup": string;
     /**
-     * 未読
+     * GDPRモードを有効にする
      */
     "enableGDPRMode": string;
+    /**
+     * 未読
+     */
     "unread": string;
     /**
      * フィルタ
@@ -3979,11 +3993,11 @@ export interface Locale extends ILocale {
      */
     "remindMeLater": string;
     /**
-     * Misskeyを気に入っていただけましたか？
+     * Rosekeyを気に入っていただけましたか？
      */
     "didYouLikeMisskey": string;
     /**
-     * Misskeyは{host}が使用している無料のソフトウェアです。これからも開発を続けられるように、ぜひ寄付をお願いします！
+     * Rosekeyは{host}が使用している無料のソフトウェアです。これからも開発を続けられるように、ぜひ寄付をお願いします！
      */
     "pleaseDonate": ParameterizedString<"host">;
     /**
@@ -4459,7 +4473,7 @@ export interface Locale extends ILocale {
      */
     "later": string;
     /**
-     * Misskeyへ
+     * Rosekeyへ
      */
     "goToMisskey": string;
     /**
@@ -4974,7 +4988,7 @@ export interface Locale extends ILocale {
          */
         "haveFun": ParameterizedString<"name">;
         /**
-         * このまま{name}(Misskey)の使い方についてのチュートリアルに進むこともできますが、ここで中断してすぐに使い始めることもできます。
+         * このまま{name}(Rosekey)の使い方についてのチュートリアルに進むこともできますが、ここで中断してすぐに使い始めることもできます。
          */
         "youCanContinueTutorial": ParameterizedString<"name">;
         /**
@@ -5013,7 +5027,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * ここでは、Misskeyの基本的な使い方や機能を確認できます。
+             * ここでは、Rosekeyの基本的な使い方や機能を確認できます。
              */
             "description": string;
         };
@@ -5023,7 +5037,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Misskeyでの投稿は「ノート」と呼びます。ノートはタイムラインに時系列で並んでいて、リアルタイムで更新されていきます。
+             * Rosekeyでの投稿は「ノート」と呼びます。ノートはタイムラインに時系列で並んでいて、リアルタイムで更新されていきます。
              */
             "description": string;
             /**
@@ -5075,7 +5089,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Misskeyには、使い方に応じて複数のタイムラインが用意されています（サーバーによってはいずれかが無効になっていることがあります）。
+             * Rosekeyには、使い方に応じて複数のタイムラインが用意されています（サーバーによってはいずれかが無効になっていることがあります）。
              */
             "description1": string;
             /**
@@ -5109,7 +5123,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Misskeyにノートを投稿する際には、様々なオプションの設定が可能です。投稿フォームはこのようになっています。
+             * Rosekeyにノートを投稿する際には、様々なオプションの設定が可能です。投稿フォームはこのようになっています。
              */
             "description1": string;
             "_visibility": {
@@ -5209,7 +5223,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * ここで紹介した機能はほんの一部にすぎません。Misskeyの使い方をより詳しく知るには、{link}をご覧ください。
+             * ここで紹介した機能はほんの一部にすぎません。Rosekeyの使い方をより詳しく知るには、{link}をご覧ください。
              */
             "description": ParameterizedString<"link">;
         };
@@ -5324,7 +5338,7 @@ export interface Locale extends ILocale {
          * フォロワーの移行は自動ですが、フォローの移行は手動で行う必要があります。移行前にこのアカウントでフォローエクスポートし、移行後すぐに移行先アカウントでインポートを行なってください。
          * リスト・ミュート・ブロックについても同様ですので、手動で移行する必要があります。
          *
-         * （この説明はこのサーバー（Misskey v13.12.0以降）の仕様です。Mastodonなどの他のActivityPubソフトウェアでは挙動が異なる場合があります。）
+         * （この説明はこのサーバー（Misskey）の仕様です。Mastodonなどの他のActivityPubソフトウェアでは挙動が異なる場合があります。）
          */
         "moveAccountDescription": string;
         /**
@@ -5364,7 +5378,7 @@ export interface Locale extends ILocale {
         "_types": {
             "_notes1": {
                 /**
-                 * just setting up my msky
+                 * just setting up my rose
                  */
                 "title": string;
                 /**
@@ -5372,7 +5386,7 @@ export interface Locale extends ILocale {
                  */
                 "description": string;
                 /**
-                 * 良いMisskeyライフを！
+                 * 良いRosekeyライフを！
                  */
                 "flavor": string;
             };
@@ -5696,7 +5710,7 @@ export interface Locale extends ILocale {
                  */
                 "description": string;
                 /**
-                 * Misskeyを使ってくれてありがとう！
+                 * Rosekeyを使ってくれてありがとう！
                  */
                 "flavor": string;
             };
@@ -5896,15 +5910,15 @@ export interface Locale extends ILocale {
             };
             "_iLoveMisskey": {
                 /**
-                 * I Love Misskey
+                 * I Love Rosekey
                  */
                 "title": string;
                 /**
-                 * "I ❤ #Misskey"を投稿した
+                 * "I ❤ #Rosekey"を投稿した
                  */
                 "description": string;
                 /**
-                 * Misskeyを使ってくださりありがとうございます！ by 開発チーム
+                 * Rosekeyを使ってくださりありがとうございます！ by 開発チーム
                  */
                 "flavor": string;
             };
@@ -5930,7 +5944,7 @@ export interface Locale extends ILocale {
             };
             "_client60min": {
                 /**
-                 * Misskeyの見すぎ
+                 * Rosekeyの見すぎ
                  */
                 "title": string;
                 /**
@@ -6154,7 +6168,7 @@ export interface Locale extends ILocale {
                  */
                 "description": string;
                 /**
-                 * Misskey-Misskey La-Tu-Ma
+                 * Rosekey-Misskey La-Tu-Ma
                  */
                 "flavor": string;
             };
@@ -6170,7 +6184,7 @@ export interface Locale extends ILocale {
             };
             "_tutorialCompleted": {
                 /**
-                 * Misskey初心者講座 修了証
+                 * Rosekey初心者講座 修了証
                  */
                 "title": string;
                 /**
@@ -6447,13 +6461,13 @@ export interface Locale extends ILocale {
              */
             "canUseTranslator": string;
             /**
+             * サウンド設定でドライブのファイルを利用
+             */
+            "canUseDriveFileInSoundSettings": string;
+            /**
              * アイコンデコレーションの最大取付個数
              */
             "avatarDecorationLimit": string;
-            /**
-             * サウンドをロールで管理
-             */
-            "canUseDriveFileInSoundSettings": string;
         };
         "_condition": {
             /**
@@ -6812,7 +6826,7 @@ export interface Locale extends ILocale {
     };
     "_aboutMisskey": {
         /**
-         * Misskeyはsyuiloによって2014年から開発されている、オープンソースのソフトウェアです。
+         * RosekeyはMisskeyをベースにしFREELYNETWORKによって2024年から開発されている、オープンソースのソフトウェアです。
          */
         "about": string;
         /**
@@ -7318,7 +7332,7 @@ export interface Locale extends ILocale {
          */
         "driveFileDurationWarn": string;
         /**
-         * 長い音声を使用するとMisskeyの使用に支障をきたす可能性があります。それでも続行しますか？
+         * 長い音声を使用するとRosekeyの使用に支障をきたす可能性があります。それでも続行しますか？
          */
         "driveFileDurationWarnDescription": string;
     };
@@ -9660,7 +9674,7 @@ export interface Locale extends ILocale {
          */
         "shareToTlTheGameWhenStart": string;
         /**
-         * 対局を開始しました！ #MisskeyReversi
+         * 対局を開始しました！ #RosekeyReversi
          */
         "iStartedAGame": string;
         /**
