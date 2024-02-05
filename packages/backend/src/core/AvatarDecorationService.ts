@@ -120,74 +120,76 @@ export class AvatarDecorationService implements OnApplicationShutdown {
 	}
 
 	@bindThis
-	public async remoteUserUpdate(user: MiUser) {
-		const userHost = user.host ?? '';
-		const instance = await this.instancesRepository.findOneBy({ host: userHost });
-		const userHostUrl = `https://${user.host}`;
-		const showUserApiUrl = `${userHostUrl}/api/users/show`;
+public async remoteUserUpdate(user: MiUser) {
+    const userHost = user.host ?? '';
+    const instance = await this.instancesRepository.findOneBy({ host: userHost });
+    const userHostUrl = `https://${user.host}`;
+    const showUserApiUrl = `${userHostUrl}/api/users/show`;
 
-		if (instance?.softwareName !== 'misskey' && instance?.softwareName !== 'cherrypick') {
-			return;
-		}
+    if (instance?.softwareName !== 'misskey' && instance?.softwareName !== 'cherrypick') {
+        return;
+    }
 
-		const res = await this.httpRequestService.send(showUserApiUrl, {
-			method: 'POST',
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ "username": user.username }),
-		});
+    const res = await this.httpRequestService.send(showUserApiUrl, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "username": user.username }),
+    });
 
-		const userData: any = await res.json();
-		const avatarDecorations = userData.avatarDecorations[0];
+    const userData: any = await res.json();
+    const avatarDecorations = userData.avatarDecorations;
 
-		if (avatarDecorations != null) {
-			const avatarDecorationId = avatarDecorations.id;
-			const instanceHost = instance?.host;
-			const decorationApiUrl = `https://${instanceHost}/api/get-avatar-decorations`;
-			const allRes = await this.httpRequestService.send(decorationApiUrl, {
-				method: 'POST',
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({}),
-			});
+    if (avatarDecorations != null && avatarDecorations.length > 0) {
+        for (const avatarDecoration of avatarDecorations) {
+            const avatarDecorationId = avatarDecoration.id;
+            const instanceHost = instance?.host;
+            const decorationApiUrl = `https://${instanceHost}/api/get-avatar-decorations`;
+            const allRes = await this.httpRequestService.send(decorationApiUrl, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({}),
+            });
 
-			const allDecorations: any = await allRes.json();
-			let name;
-			let description;
+            const allDecorations: any = await allRes.json();
+            let name;
+            let description;
 
-			for (const decoration of allDecorations) {
-				if (decoration.id == avatarDecorationId) {
-					name = decoration.name;
-					description = decoration.description;
-					break;
-				}
-			}
+            for (const decoration of allDecorations) {
+                if (decoration.id == avatarDecorationId) {
+                    name = decoration.name;
+                    description = decoration.description;
+                    break;
+                }
+            }
 
-			const existingDecoration = await this.avatarDecorationsRepository.findOneBy({ host: userHost, remoteId: avatarDecorationId });
+            const existingDecoration = await this.avatarDecorationsRepository.findOneBy({ host: userHost, remoteId: avatarDecorationId });
 
-			const decorationData = {
-				name: name,
-				description: description,
-				url: this.getProxiedUrl(avatarDecorations.url, 'static'),
-				remoteId: avatarDecorationId,
-				host: userHost,
-			};
+            const decorationData = {
+                name: name,
+                description: description,
+                url: this.getProxiedUrl(avatarDecoration.url, 'static'), // 変更点: avatarDecoration.url を使用する
+                remoteId: avatarDecorationId,
+                host: userHost,
+            };
 
-			if (existingDecoration == null) {
-				await this.create(decorationData);
-			} else {
-				await this.update(existingDecoration.id, decorationData);
-			}
+            if (existingDecoration == null) {
+                await this.create(decorationData);
+            } else {
+                await this.update(existingDecoration.id, decorationData);
+            }
 
-			const findDecoration = await this.avatarDecorationsRepository.findOneBy({ host: userHost, remoteId: avatarDecorationId });
-			const updates = {} as Partial<MiUser>;
-			updates.avatarDecorations = [{
-				id: findDecoration?.id ?? '',
-				angle: avatarDecorations.angle ?? 0,
-				flipH: avatarDecorations.flipH ?? false,
-			}];
+            const findDecoration = await this.avatarDecorationsRepository.findOneBy({ host: userHost, remoteId: avatarDecorationId });
+            const updates = {} as Partial<MiUser>;
+            updates.avatarDecorations = [{
+                id: findDecoration?.id ?? '',
+                angle: avatarDecoration.angle ?? 0, // 変更点: avatarDecoration.angle を使用する
+                flipH: avatarDecoration.flipH ?? false, // 変更点: avatarDecoration.flipH を使用する
+            }];
 
-			await this.usersRepository.update({ id: user.id }, updates);
-		}
-	}
+            await this.usersRepository.update({ id: user.id }, updates);
+        }
+    }
+}
 
 	@bindThis
 	public async delete(id: MiAvatarDecoration['id'], moderator?: MiUser): Promise<void> {
