@@ -191,40 +191,41 @@ public async remoteUserUpdate(user: MiUser) {
     }
 }
 
-	@bindThis
-	public async delete(id: MiAvatarDecoration['id'], moderator?: MiUser): Promise<void> {
-		const avatarDecoration = await this.avatarDecorationsRepository.findOneByOrFail({ id });
-
-		await this.avatarDecorationsRepository.delete({ id: avatarDecoration.id });
-		this.globalEventService.publishInternalEvent('avatarDecorationDeleted', avatarDecoration);
-
-		if (moderator) {
-			this.moderationLogService.log(moderator, 'deleteAvatarDecoration', {
-				avatarDecorationId: avatarDecoration.id,
-				avatarDecoration: avatarDecoration,
-			});
-		}
-	}
-
-	@bindThis
-	public async getAll(noCache = false, withRemote = false): Promise<MiAvatarDecoration[]> {
-		if (noCache) {
-			this.cache.delete();
-		}
-		if (!withRemote) {
-			return this.cache.fetch(() => this.avatarDecorationsRepository.find({ where: { host: IsNull() } }));
-		} else {
-			return this.cache.fetch(() => this.avatarDecorationsRepository.find());
-		}
-	}
-
-	@bindThis
-	public dispose(): void {
-		this.redisForSub.off('message', this.onMessage);
-	}
-
-	@bindThis
-	public onApplicationShutdown(signal?: string | undefined): void {
-		this.dispose();
-	}
-}
+        @bindThis
+        public async delete(id: MiAvatarDecoration['id'], moderator?: MiUser): Promise<void> {
+        	const avatarDecoration = await this.avatarDecorationsRepository.findOneByOrFail({ id });
+        
+        	await this.avatarDecorationsRepository.delete({ id: avatarDecoration.id });
+        	this.globalEventService.publishInternalEvent('avatarDecorationDeleted', avatarDecoration);
+        
+        	if (moderator) {
+        		this.moderationLogService.log(moderator, 'deleteAvatarDecoration', {
+        			avatarDecorationId: avatarDecoration.id,
+        			avatarDecoration: avatarDecoration,
+        		});
+        	}
+        }
+        
+        @bindThis
+        public async getAll(noCache = false, withRemote = false): Promise<MiAvatarDecoration[]> {
+        	if (noCache) {
+        		this.cache.delete();
+        	}
+        	if (!withRemote) {
+        		return this.cache.fetch(() => this.avatarDecorationsRepository.find({ where: { host: IsNull() } }));
+        	} else {
+        		return this.cache.fetch(() => this.avatarDecorationsRepository.find());
+        	}
+        }
+        
+        @bindThis
+        public dispose(): void {
+        	this.redisForSub.off('message', this.onMessage);
+        }
+        
+        @bindThis
+        public onApplicationShutdown(signal?: string | undefined): void {
+        	this.dispose();
+        }
+     }
+        
