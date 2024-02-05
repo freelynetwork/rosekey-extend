@@ -18,6 +18,8 @@ const keys = [
 	'l-cherry',
 	'l-sushi',
 	'l-u0',
+	'l-rosekey-mildlight',
+	'l-rosekey-stronglight',
 	'd-dark',
 	'd-persimmon',
 	'd-astro',
@@ -28,6 +30,8 @@ const keys = [
 	'd-cherry',
 	'd-ice',
 	'd-u0',
+	'd-rosekey-deepdark',
+	'd-rosekey-litedark',
 ]
 
 await Promise.all(keys.map((key) => readFile(new URL(`../src/themes/${key}.json5`, import.meta.url), 'utf8'))).then((sources) => {
