@@ -358,7 +358,21 @@ export class UserEntityService implements OnModuleInit {
 			host: user.host,
 			avatarUrl: user.avatarUrl ?? this.getIdenticonUrl(user),
 			avatarBlurhash: user.avatarBlurhash,
-			avatarDecorations: user.avatarDecorations.length > 0 ? this.avatarDecorationService.getAll(false, true).then(decorations => user.avatarDecorations.map(ud => decorations.find(d => d.id === ud.id) && { id: ud.id, angle: ud.angle || undefined, flipH: ud.flipH || undefined, offsetX: ud.offsetX || undefined, offsetY: ud.offsetY || undefined, url: decorations.find(d => d.id === ud.id)!.url })).filter(Boolean) : [],
+			avatarDecorations: user.avatarDecorations.length > 0 ?
+			this.avatarDecorationService.getAll(false, true).then(decorations => 
+				user.avatarDecorations.map(ud => 
+					decorations.find(d => d.id === ud.id) && {
+						id: ud.id,
+						angle: ud.angle || undefined,
+						flipH: ud.flipH || undefined,
+						offsetX: ud.offsetX || undefined,
+						offsetY: ud.offsetY || undefined,
+						url: decorations.find(d => d.id === ud.id)!.url
+					}
+				).filter(Boolean)
+			)
+			:
+			[],
 			isBot: user.isBot,
 			isCat: user.isCat,
 			instance: user.host ? this.federatedInstanceService.federatedInstanceCache.fetch(user.host).then(instance => instance ? {
