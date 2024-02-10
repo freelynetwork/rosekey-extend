@@ -17,8 +17,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<MkSubNoteContent :class="$style.text" :note="note"/>
 			</div>
 			<div v-if="note.isSchedule" style="margin-top: 10px;">
-				<MkButton :class="$style.button" inline @click="editScheduleNote()">{{ i18n.ts.deleteAndEdit }}</MkButton>
-				<MkButton :class="$style.button" inline danger @click="deleteScheduleNote()">{{ i18n.ts.delete }}</MkButton>
+				<MkButton :class="$style.button" inline @click="editScheduleNote()"><i class="ti ti-pencil"></i> {{ i18n.ts.deleteAndEdit }}</MkButton>
+				<MkButton :class="$style.button" inline danger @click="deleteScheduleNote()"><i class="ti ti-trash"></i> {{ i18n.ts.delete }}</MkButton>
 			</div>
 		</div>
 	</div>
@@ -26,14 +26,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import * as Misskey from 'misskey-js';
 import { ref } from 'vue';
+import * as Misskey from 'misskey-js';
 import { i18n } from '../i18n.js';
 import MkNoteHeader from '@/components/MkNoteHeader.vue';
 import MkSubNoteContent from '@/components/MkSubNoteContent.vue';
 import MkCwButton from '@/components/MkCwButton.vue';
 import MkButton from '@/components/MkButton.vue';
 import * as os from '@/os.js';
+import {misskeyApi} from "@/scripts/misskey-api.js";
 const isDeleted = ref(false);
 const props = defineProps<{
 	note: Misskey.entities.Note & {
@@ -72,7 +73,7 @@ async function editScheduleNote() {
 
 	if (canceled) return;
 
-	await os.api('notes/schedule/delete', { scheduledNoteId: props.note.scheduledNoteId })
+	await misskeyApi('notes/schedule/delete', { scheduledNoteId: props.note.scheduledNoteId })
 		.then(() => {
 			isDeleted.value = true;
 		});
@@ -82,7 +83,7 @@ async function editScheduleNote() {
 	emit('editScheduleNote');
 }
 
-const showContent = $ref(false);
+const showContent = ref(false);
 </script>
 
 <style lang="scss" module>
@@ -91,7 +92,7 @@ const showContent = $ref(false);
 	margin: 0;
 	padding: 0;
 	font-size: 0.95em;
-  border-bottom: solid 0.5px var(--divider);
+
 }
 .button{
   margin-right: var(--margin);
