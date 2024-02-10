@@ -832,7 +832,7 @@ schedule: schedule.value,
 			if (notesCount === 1) {
 				claimAchievement('notes1');
 			}
-			poll = null;
+			poll.value = null;
 			const text = postData.text ?? '';
 			const lowerCase = text.toLowerCase();
 			if ((lowerCase.includes('love') || lowerCase.includes('❤')) && lowerCase.includes('rosekey')) {
