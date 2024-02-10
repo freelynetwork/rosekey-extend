@@ -90,7 +90,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 		private roleService: RoleService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
-			const listExist = await this.userListsRepository.exists({
+			const listExist = await this.userListsRepository.exist({
 				where: {
 					id: ps.listId,
 					isPublic: true,
@@ -121,7 +121,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				});
 
 				if (currentUser.id !== me.id) {
-					const blockExist = await this.blockingsRepository.exists({
+					const blockExist = await this.blockingsRepository.exist({
 						where: {
 							blockerId: currentUser.id,
 							blockeeId: me.id,
@@ -132,7 +132,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 					}
 				}
 
-				const exist = await this.userListMembershipsRepository.exists({
+				const exist = await this.userListMembershipsRepository.exist({
 					where: {
 						userListId: userList.id,
 						userId: currentUser.id,

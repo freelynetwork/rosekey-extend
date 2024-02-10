@@ -629,7 +629,7 @@ export class ApInboxService {
 			return 'skip: follower not found';
 		}
 
-		const isFollowing = await this.followingsRepository.exists({
+		const isFollowing = await this.followingsRepository.exist({
 			where: {
 				followerId: follower.id,
 				followeeId: actor.id,
@@ -686,14 +686,14 @@ export class ApInboxService {
 			return 'skip: フォロー解除しようとしているユーザーはローカルユーザーではありません';
 		}
 
-		const requestExist = await this.followRequestsRepository.exists({
+		const requestExist = await this.followRequestsRepository.exist({
 			where: {
 				followerId: actor.id,
 				followeeId: followee.id,
 			},
 		});
 
-		const isFollowing = await this.followingsRepository.exists({
+		const isFollowing = await this.followingsRepository.exist({
 			where: {
 				followerId: actor.id,
 				followeeId: followee.id,
