@@ -37,5 +37,7 @@ Rosekey Documentation can be found at [misskey Hub](https://misskey-hub.net/docs
 
 ## Thank's
 [PrisMisskey](https://gitea.nanasi-apps.xyz/mattyatea/misskey) Some of the codes in this project contain PrisMisskey codes.
+
 [CherryPick](https://github.com/kokonect-link/cherrypick) Some of the codes in this project contain CherryPick codes.
+
 We would like to thank the developers of the above projects and inform you that Rosekey uses source code from the following projects.
