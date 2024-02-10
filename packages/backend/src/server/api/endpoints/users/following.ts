@@ -109,7 +109,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				if (me == null) {
 					throw new ApiError(meta.errors.forbidden);
 				} else if (me.id !== user.id) {
-					const isFollowing = await this.followingsRepository.exists({
+					const isFollowing = await this.followingsRepository.exist({
 						where: {
 							followeeId: user.id,
 							followerId: me.id,

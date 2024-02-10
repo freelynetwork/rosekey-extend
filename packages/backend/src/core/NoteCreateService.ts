@@ -120,8 +120,6 @@ class NotificationManager {
 export class NoteCreateService implements OnApplicationShutdown {
 	#shutdownController = new AbortController();
 
-	public static ContainsProhibitedWordsError = class extends Error {};
-
 	constructor(
 		@Inject(DI.config)
 		private config: Config,
@@ -225,16 +223,10 @@ export class NoteCreateService implements OnApplicationShutdown {
 
 		if (data.visibility === 'public' && data.channel == null) {
 			const sensitiveWords = meta.sensitiveWords;
-			if (this.utilityService.isKeyWordIncluded(data.cw ?? data.text ?? '', sensitiveWords)) {
+			if (this.utilityService.isSensitiveWordIncluded(data.cw ?? data.text ?? '', sensitiveWords)) {
 				data.visibility = 'home';
 			} else if ((await this.roleService.getUserPolicies(user.id)).canPublicNote === false) {
 				data.visibility = 'home';
-			}
-		}
-
-		if (!user.host) {
-			if (this.utilityService.isKeyWordIncluded(data.cw ?? data.text ?? '', meta.prohibitedWords)) {
-				throw new NoteCreateService.ContainsProhibitedWordsError();
 			}
 		}
 
@@ -579,7 +571,7 @@ export class NoteCreateService implements OnApplicationShutdown {
 			if (data.reply) {
 				// 通知
 				if (data.reply.userHost === null) {
-					const isThreadMuted = await this.noteThreadMutingsRepository.exists({
+					const isThreadMuted = await this.noteThreadMutingsRepository.exist({
 						where: {
 							userId: data.reply.userId,
 							threadId: data.reply.threadId ?? data.reply.id,
@@ -717,7 +709,7 @@ export class NoteCreateService implements OnApplicationShutdown {
 	@bindThis
 	private async createMentionedEvents(mentionedUsers: MinimumUser[], note: MiNote, nm: NotificationManager) {
 		for (const u of mentionedUsers.filter(u => this.userEntityService.isLocalUser(u))) {
-			const isThreadMuted = await this.noteThreadMutingsRepository.exists({
+			const isThreadMuted = await this.noteThreadMutingsRepository.exist({
 				where: {
 					userId: u.id,
 					threadId: note.threadId ?? note.id,

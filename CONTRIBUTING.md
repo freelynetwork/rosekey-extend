@@ -286,17 +286,18 @@ export const argTypes = {
 			min: 1,
 			max: 4,
 		},
-	},
 };
 ```
 
 Also, you can use msw to mock API requests in the storybook. Creating a `MyComponent.stories.msw.ts` file to define the mock handlers.
 
 ```ts
-import { HttpResponse, http } from 'msw';
+import { rest } from 'msw';
 export const handlers = [
-	http.post('/api/notes/timeline', ({ request }) => {
-		return HttpResponse.json([]);
+	rest.post('/api/notes/timeline', (req, res, ctx) => {
+		return res(
+			ctx.json([]),
+		);
 	}),
 ];
 ```

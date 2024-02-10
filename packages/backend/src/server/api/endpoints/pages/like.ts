@@ -70,7 +70,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			}
 
 			// if already liked
-			const exist = await this.pageLikesRepository.exists({
+			const exist = await this.pageLikesRepository.exist({
 				where: {
 					pageId: page.id,
 					userId: me.id,

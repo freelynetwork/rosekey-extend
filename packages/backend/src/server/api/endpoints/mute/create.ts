@@ -83,7 +83,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			});
 
 			// Check if already muting
-			const exist = await this.mutingsRepository.exists({
+			const exist = await this.mutingsRepository.exist({
 				where: {
 					muterId: muter.id,
 					muteeId: mutee.id,

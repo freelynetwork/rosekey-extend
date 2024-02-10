@@ -88,7 +88,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			});
 
 			// Check if already blocking
-			const exist = await this.blockingsRepository.exists({
+			const exist = await this.blockingsRepository.exist({
 				where: {
 					blockerId: blocker.id,
 					blockeeId: blockee.id,

@@ -41,11 +41,6 @@ export const paramDef = {
 				type: 'string',
 			},
 		},
-		prohibitedWords: {
-			type: 'array', nullable: true, items: {
-				type: 'string',
-			},
-		},
 		themeColor: { type: 'string', nullable: true, pattern: '^#[0-9a-fA-F]{6}$' },
 		mascotImageUrl: { type: 'string', nullable: true },
 		bannerUrl: { type: 'string', nullable: true },
@@ -182,9 +177,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (Array.isArray(ps.sensitiveWords)) {
 				set.sensitiveWords = ps.sensitiveWords.filter(Boolean);
-			}
-			if (Array.isArray(ps.prohibitedWords)) {
-				set.prohibitedWords = ps.prohibitedWords.filter(Boolean);
 			}
 			if (Array.isArray(ps.silencedHosts)) {
 				let lastValue = '';
