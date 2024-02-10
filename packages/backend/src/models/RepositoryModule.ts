@@ -72,6 +72,8 @@ import {
 	MiUserSecurityKey,
 	MiWebhook,
 	MiScheduledNote,
+	MiBubbleGameRecord, 
+	MiReversiGame
 } from './_.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
