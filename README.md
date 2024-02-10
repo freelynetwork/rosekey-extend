@@ -34,3 +34,8 @@ With Rosekey's built in drive, you get cloud storage right in your social media,
 ## Documentation
 
 Rosekey Documentation can be found at [misskey Hub](https://misskey-hub.net/docs/), some of the links and graphics above also lead to specific portions of it.
+
+## Thank's
+[PrisMisskey](https://gitea.nanasi-apps.xyz/mattyatea/misskey) Some of the codes in this project contain PrisMisskey codes.
+[CherryPick](https://github.com/kokonect-link/cherrypick) Some of the codes in this project contain CherryPick codes.
+We would like to thank the developers of the above projects and inform you that Rosekey uses source code from the following projects.
