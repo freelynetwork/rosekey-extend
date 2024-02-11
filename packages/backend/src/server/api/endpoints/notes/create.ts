@@ -7,7 +7,8 @@ import ms from 'ms';
 import { In } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import type { MiUser } from '@/models/User.js';
-import type { UsersRepository, NotesRepository, BlockingsRepository, DriveFilesRepository, ChannelsRepository } from '@/models/_.js';
+import type { UsersRepository, NotesRepository, ScheduledNotesRepository, BlockingsRepository, DriveFilesRepository, ChannelsRepository } from '@/models/_.js';
+import type { MiNoteCreateOption } from '@/types.js';
 import type { MiDriveFile } from '@/models/DriveFile.js';
 import type { MiNote } from '@/models/Note.js';
 import type { MiChannel } from '@/models/Channel.js';
@@ -15,6 +16,9 @@ import { MAX_NOTE_TEXT_LENGTH } from '@/const.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { NoteCreateService } from '@/core/NoteCreateService.js';
+import { QueueService } from '@/core/QueueService.js';
+import { IdService } from '@/core/IdService.js';
+import { RoleService } from '@/core/RoleService.js';
 import { DI } from '@/di-symbols.js';
 import { isPureRenote } from '@/misc/is-pure-renote.js';
 import { MetaService } from '@/core/MetaService.js';
@@ -41,8 +45,16 @@ export const meta = {
 		properties: {
 			createdNote: {
 				type: 'object',
-				optional: false, nullable: false,
+				optional: false, nullable: true,
 				ref: 'Note',
+			},
+			scheduledNoteId: {
+				type: 'string',
+				optional: true, nullable: true,
+			},
+			scheduledNote: {
+				type: 'object',
+				optional: true, nullable: true,
 			},
 		},
 	},
@@ -119,6 +131,27 @@ export const meta = {
 			code: 'CONTAINS_PROHIBITED_WORDS',
 			id: 'aa6e01d3-a85c-669d-758a-76aab43af334',
 		},
+		cannotCreateAlreadyExpiredSchedule: {
+			message: 'Schedule is already expired.',
+			code: 'CANNOT_CREATE_ALREADY_EXPIRED_SCHEDULE',
+			id: '8a9bfb90-fc7e-4878-a3e8-d97faaf5fb07',
+		},
+		specifyScheduleDate: {
+			message: 'Please specify schedule date.',
+			code: 'PLEASE_SPECIFY_SCHEDULE_DATE',
+			id: 'c93a6ad6-f7e2-4156-a0c2-3d03529e5e0f',
+		},
+		noSuchSchedule: {
+			message: 'No such schedule.',
+			code: 'NO_SUCH_SCHEDULE',
+			id: '44dee229-8da1-4a61-856d-e3a4bbc12032',
+		},
+		rolePermissionDenied: {
+			message: 'You are not assigned to a required role.',
+			code: 'ROLE_PERMISSION_DENIED',
+			kind: 'permission',
+			id: '7f86f06f-7e15-4057-8561-f4b6d4ac755a',
+		},
 	},
 } as const;
 
@@ -178,6 +211,13 @@ export const paramDef = {
 			},
 			required: ['choices'],
 		},
+		schedule: {
+			type: 'object',
+			nullable: true,
+			properties: {
+				scheduledAt: { type: 'string', nullable: false },
+			},
+		},
 	},
 	// (re)note with text, files and poll are optional
 	if: {
@@ -192,6 +232,9 @@ export const paramDef = {
 				type: 'null',
 			},
 			poll: {
+				type: 'null',
+			},
+			schedule: {
 				type: 'null',
 			},
 		},
@@ -218,6 +261,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 		@Inject(DI.notesRepository)
 		private notesRepository: NotesRepository,
 
+		@Inject(DI.scheduledNotesRepository)
+		private scheduledNotesRepository: ScheduledNotesRepository,
+
 		@Inject(DI.blockingsRepository)
 		private blockingsRepository: BlockingsRepository,
 
@@ -229,6 +275,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 		private noteEntityService: NoteEntityService,
 		private noteCreateService: NoteCreateService,
+
+		private roleService: RoleService,
+		private queueService: QueueService,
+    private idService: IdService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
 			let visibleUsers: MiUser[] = [];
@@ -347,40 +397,70 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				}
 			}
 
-			// 投稿を作成
-			try {
-				const note = await this.noteCreateService.create(me, {
-					createdAt: new Date(),
-					files: files,
-					poll: ps.poll ? {
-						choices: ps.poll.choices,
-						multiple: ps.poll.multiple ?? false,
-						expiresAt: ps.poll.expiresAt ? new Date(ps.poll.expiresAt) : null,
-					} : undefined,
-					text: ps.text ?? undefined,
-					reply,
-					renote,
-					cw: ps.cw,
-					localOnly: ps.localOnly,
-					reactionAcceptance: ps.reactionAcceptance,
-					visibility: ps.visibility,
-					visibleUsers,
-					channel,
-					apMentions: ps.noExtractMentions ? [] : undefined,
-					apHashtags: ps.noExtractHashtags ? [] : undefined,
-					apEmojis: ps.noExtractEmojis ? [] : undefined,
+			const note: MiNoteCreateOption = {
+				createdAt: new Date(),
+				files: files,
+				poll: ps.poll ? {
+					choices: ps.poll.choices,
+					multiple: ps.poll.multiple ?? false,
+					expiresAt: ps.poll.expiresAt ? new Date(ps.poll.expiresAt) : null,
+				} : undefined,
+				text: ps.text ?? undefined,
+				reply,
+				renote,
+				cw: ps.cw,
+				localOnly: ps.localOnly,
+				reactionAcceptance: ps.reactionAcceptance,
+				visibility: ps.visibility,
+				visibleUsers,
+				channel,
+				apMentions: ps.noExtractMentions ? [] : undefined,
+				apHashtags: ps.noExtractHashtags ? [] : undefined,
+				apEmojis: ps.noExtractEmojis ? [] : undefined,
+			};
+
+			if (ps.schedule) {
+				// 予約投稿
+				const canCreateScheduledNote = (await this.roleService.getUserPolicies(me.id)).canScheduleNote;
+				if (!canCreateScheduledNote) {
+					throw new ApiError(meta.errors.rolePermissionDenied);
+				}
+
+				if (!ps.schedule.scheduledAt) {
+					throw new ApiError(meta.errors.specifyScheduleDate);
+				}
+
+				me.token = null;
+				const scheduledNoteId = this.idService.gen(new Date().getTime());
+				await this.scheduledNotesRepository.insert({
+					id: scheduledNoteId,
+					note: note,
+					userId: me.id,
+					scheduledAt: new Date(ps.schedule.scheduledAt),
+				});
+
+				const delay = new Date(ps.schedule.scheduledAt).getTime() - Date.now();
+				await this.queueService.ScheduleNotePostQueue.add(delay.toString(), {
+					scheduledNoteId,
+				}, {
+					jobId: scheduledNoteId,
+					delay,
+					removeOnComplete: true,
 				});
 
 				return {
-					createdNote: await this.noteEntityService.pack(note, me),
-				};
-			} catch (e) {
-				// TODO: 他のErrorもここでキャッチしてエラーメッセージを当てるようにしたい
-				if (e instanceof NoteCreateService.ContainsProhibitedWordsError) {
-					throw new ApiError(meta.errors.containsProhibitedWords);
-				}
+					scheduledNoteId,
+					scheduledNote: note,
 
-				throw e;
+					// ↓互換性のため（微妙）
+					createdNote: null,
+				};
+			} else {
+				// 投稿を作成
+				const createdNoteRaw = await this.noteCreateService.create(me, note);
+				return {
+					createdNote: await this.noteEntityService.pack(createdNoteRaw, me),
+				};
 			}
 		});
 	}
