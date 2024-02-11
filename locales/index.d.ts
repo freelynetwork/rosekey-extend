@@ -4183,6 +4183,18 @@ export interface Locale extends ILocale {
      */
     "sensitiveWordsDescription2": string;
     /**
+     * 禁止ワード
+     */
+    "prohibitedWords": string;
+    /**
+     * 設定したワードが含まれるノートを投稿しようとした際、エラーとなるようにします。改行で区切って複数設定できます。
+     */
+    "prohibitedWordsDescription": string;
+    /**
+     * スペースで区切るとAND指定になり、キーワードをスラッシュで囲むと正規表現になります。
+     */
+    "prohibitedWordsDescription2": string;
+    /**
      * 非表示ハッシュタグ
      */
     "hiddenTags": string;
@@ -4896,7 +4908,7 @@ export interface Locale extends ILocale {
          */
         "readConfirmText": ParameterizedString<"title">;
         /**
-         * 特に新規ユーザーのUXを損ねる可能性が高いため、ストック情報ではなくフロー情報の掲示にお知らせを使用することを推奨します。
+         * 特に新規ユーザーのUXを損ねる可能性が高いため、常時掲示するための情報ではなく、即時性が求められる情報の掲示のためにお知らせを使用することを推奨します。
          */
         "shouldNotBeUsedToPresentPermanentInfo": string;
         /**

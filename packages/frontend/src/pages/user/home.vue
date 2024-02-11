@@ -174,7 +174,7 @@ import { dateString } from '@/filters/date.js';
 import { confetti } from '@/scripts/confetti.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import { isFollowingVisibleForMe, isFollowersVisibleForMe } from '@/scripts/isFfVisibleForMe.js';
-import { useRouter } from '@/global/router/supplier.js';
+import { useRouter } from '@/router/supplier.js';
 import { editNickname } from '@/scripts/edit-nickname.js';
 
 function calcAge(birthdate: string): number {

@@ -1,13 +1,13 @@
 {
 	"name": "rosekey",
-	"version": "0.1 VERSION A REVISION 1 dev.11.bfix",
-	"basedMisskeyVersion": "2024.2.0-beta.7",
+	"version": "0.1 VERSION A REVISION 1 dev.12.5",
+	"basedMisskeyVersion": "2024.2.0-beta.11",
 	"codename": "Mix",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/freelynetwork/rosekey"
 	},
-	"packageManager": "pnpm@8.12.1",
+	"packageManager": "pnpm@8.15.1",
 	"workspaces": [
 		"packages/frontend",
 		"packages/backend",
