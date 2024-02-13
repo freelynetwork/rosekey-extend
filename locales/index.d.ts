@@ -6372,6 +6372,7 @@ export interface Locale extends ILocale {
              * パブリック投稿の許可
              */
             "canPublicNote": string;
+            "canEditNote": string;
             /**
              * 予約投稿の許可
              */
