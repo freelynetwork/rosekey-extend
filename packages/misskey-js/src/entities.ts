@@ -18,6 +18,7 @@ export type PageEvent = {
 export type ModerationLog = {
 	id: ID;
 	createdAt: DateString;
+	updatedAt?: DateString | null;
 	userId: User['id'];
 	user: UserDetailedNotMe | null;
 } & ({

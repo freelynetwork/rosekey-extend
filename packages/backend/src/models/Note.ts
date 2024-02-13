@@ -23,6 +23,11 @@ export class MiNote {
 	})
 	public replyId: MiNote['id'] | null;
 
+	@Column('timestamp with time zone', {
+		default: null,
+	})
+	public updatedAt: Date | null;
+
 	@ManyToOne(type => MiNote, {
 		onDelete: 'CASCADE',
 	})
