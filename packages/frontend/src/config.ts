@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -20,7 +20,7 @@ const preParseLocale = miLocalStorage.getItem('locale');
 export let locale = preParseLocale ? JSON.parse(preParseLocale) : null;
 export const version = _VERSION_;
 export const miversion = repackage.basedMisskeyVersion;
-export const instanceName = siteName === 'Rosekey' ? host : siteName;
+export const instanceName = siteName === 'Rosekey' || siteName == null ? host : siteName;
 export const ui = miLocalStorage.getItem('ui');
 export const debug = miLocalStorage.getItem('debug') === 'true';
 
