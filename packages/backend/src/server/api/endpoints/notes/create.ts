@@ -452,9 +452,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 					});
 	
 					return {
-						createdNote: await this.noteEntityService.pack(note, me),
 						scheduledNoteId,
 						scheduledNote: note,
+						createdNote: await this.noteEntityService.pack(note, me),
 					};
 				} else {
 					// 投稿を作成
