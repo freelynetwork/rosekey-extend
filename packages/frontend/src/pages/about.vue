@@ -35,13 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<template #icon><i class="ti ti-info-circle"></i></template>
 							{{ i18n.ts.aboutMisskey }}
 						</FormLink>
-						<FormLink v-if="instance.repositoryUrl || instance.providesTarball" :to="instance.repositoryUrl || `/tarball/misskey-${version}.tar.gz`" external>
-							<template #icon><i class="ti ti-code"></i></template>
-							{{ i18n.ts.sourceCode }}
-						</FormLink>
-						<MkInfo v-else warn>
-							{{ i18n.ts.sourceCodeIsNotYetProvided }}
-						</MkInfo>
 					</div>
 				</FormSection>
 
@@ -79,10 +72,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<FormLink v-if="instance.privacyPolicyUrl" :to="instance.privacyPolicyUrl" external>
 								<template #icon><i class="ti ti-shield-lock"></i></template>
 								{{ i18n.ts.privacyPolicy }}
-							</FormLink>
-							<FormLink v-if="instance.feedbackUrl" :to="instance.feedbackUrl" external>
-								<template #icon><i class="ti ti-message"></i></template>
-								{{ i18n.ts.feedback }}
 							</FormLink>
 						</div>
 					</div>
