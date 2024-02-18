@@ -1,11 +1,11 @@
 {
 	"name": "rosekey",
-	"version": "0.1 VERSION A REVISION 1 extend.2",
+	"version": "0.1 VERSION A REVISION 1 extend.last",
 	"basedMisskeyVersion": "2024.2.0",
 	"codename": "Mix",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/freelynetwork/rosekey"
+		"url": "https://github.com/freelynetwork/rosekey-extend.git"
 	},
 	"packageManager": "pnpm@8.15.1",
 	"workspaces": [
