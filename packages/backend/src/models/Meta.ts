@@ -356,14 +356,14 @@ export class MiMeta {
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/freelynetwork/rosekey/',
+		default: 'https://github.com/freelynetwork/rosekey-extend',
 		nullable: true,
 	})
 	public repositoryUrl: string | null;
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/freelynetwork/rosekey/issues/new',
+		default: 'https://github.com/freelynetwork/rosekey-extend/issues/new',
 		nullable: true,
 	})
 	public feedbackUrl: string | null;
